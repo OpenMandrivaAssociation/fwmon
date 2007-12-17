@@ -9,7 +9,6 @@ Release: %release
 License: GPL
 Group: System/Servers
 Source: %name-%{version}.tar.bz2
-BuildRoot: %_tmppath/%{name}-buildroot
 Buildrequires: libpcap-devel
 Url: http://www.scaramanga.co.uk/fwmon/
 
