@@ -11,7 +11,7 @@ Group: System/Servers
 Source: %name-%{version}.tar.bz2
 Buildrequires: libpcap-devel
 # (tv) for asm/system.h:
-Buildrequires: kernel-server-devel-latest
+Buildrequires: kernel-source-latest
 Url: http://www.scaramanga.co.uk/fwmon/
 
 %description
