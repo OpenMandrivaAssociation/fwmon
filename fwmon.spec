@@ -9,6 +9,7 @@ Release: %release
 License: GPL
 Group: System/Servers
 Source: %name-%{version}.tar.bz2
+BuildRoot: %_tmppath/%{name}-buildroot
 Buildrequires: libpcap-devel
 # (tv) for asm/system.h:
 Buildrequires: kernel-source-latest
