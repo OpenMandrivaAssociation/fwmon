@@ -1,6 +1,6 @@
 %define name fwmon
 %define version 1.1.0
-%define release  %mkrel 5
+%define release  %mkrel 6
 
 Summary: A linux netlink firewall monitor
 Name: %name
@@ -9,10 +9,10 @@ Release: %release
 License: GPL
 Group: System/Servers
 Source: %name-%{version}.tar.bz2
+# http://qa.mandriva.com/show_bug.cgi?id=36213
+Patch: fwmon-1.1.0-mb.patch
 BuildRoot: %_tmppath/%{name}-buildroot
 Buildrequires: libpcap-devel
-# (tv) for asm/system.h:
-Buildrequires: kernel-source-latest
 Url: http://www.scaramanga.co.uk/fwmon/
 
 %description
@@ -25,6 +25,7 @@ non-root, and chrooting itself.
 rm -rf $RPM_BUILD_ROOT
 
 %setup -q
+%patch -p1 -b .mb
 
 %build
 
