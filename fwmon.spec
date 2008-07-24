@@ -1,6 +1,6 @@
 %define name fwmon
 %define version 1.1.0
-%define release  %mkrel 6
+%define release  %mkrel 8
 
 Summary: A linux netlink firewall monitor
 Name: %name
