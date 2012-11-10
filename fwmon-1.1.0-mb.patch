@@ -1,0 +1,66 @@
+asm/system.h header doesn't exist anymore. It isn't a bug in kernel
+headers exported to userspace, since system.h includes linux spefic
+code (like alternatives patching), and also I think isn't task of linux
+kernel to define generic macros for userspace to use, like mb. So define
+our own version of mb, the same way/based on
+/usr/include/alsa/iatomic.h from alsa-lib (libalsa2-devel)
+
+diff -p -up fwmon-1.1.0/sniffer.c.orig fwmon-1.1.0/sniffer.c
+--- fwmon-1.1.0/sniffer.c.orig	2008-01-09 12:09:07.000000000 -0500
++++ fwmon-1.1.0/sniffer.c	2008-01-09 12:24:38.000000000 -0500
+@@ -27,7 +27,6 @@ static const char rcsid[]=
+ #include <sys/poll.h>
+ #include <sys/mman.h>
+ #include <sys/ioctl.h>
+-#include <asm/system.h>
+ #include <linux/sockios.h>
+ 
+ #include <features.h>
+@@ -40,6 +39,47 @@ static const char rcsid[]=
+ # include <linux/if_ether.h>
+ #endif
+ 
++#if defined(__i386__)
++#define mb()	__asm__ __volatile__ ("lock; addl $0,0(%%esp)":::"memory")
++#endif
++
++#if defined(__x86_64__)
++#define mb()	__asm__ __volatile__ ("mfence":::"memory")
++#endif
++
++#if defined(__ia64__)
++#define mb()	__asm__ __volatile__ ("mf":::"memory")
++#endif
++
++#if defined(__alpha__)
++#define mb()	__asm__ __volatile__("mb":::"memory")
++#endif
++
++#if defined(__powerpc__)
++#define mb()	__asm__ __volatile__ ("sync":::"memory")
++#endif
++
++#if defined(__mips__)
++#define mb()						\
++__asm__ __volatile__(					\
++	"# prevent instructions being moved around\n\t"	\
++	".set\tnoreorder\n\t"				\
++	"# 8 nops to fool the R4400 pipeline\n\t"	\
++	"nop;nop;nop;nop;nop;nop;nop;nop\n\t"		\
++	".set\treorder"					\
++	: /* no output */				\
++	: /* no input */				\
++	: "memory")
++#endif
++
++#if defined(__arm__)
++#define mb() __asm__ __volatile__ ("":::"memory")
++#endif
++
++#ifndef mb
++#define mb()
++#endif
++
+ int frames;
+ int sniff_fd=-1;
+ char *map=NULL;
