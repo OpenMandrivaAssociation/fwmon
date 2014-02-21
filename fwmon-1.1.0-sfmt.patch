@@ -1,0 +1,10 @@
+diff -urN fwmon-1.1.0/slog.c fwmon-1.1.0-patched/slog.c
+--- fwmon-1.1.0/slog.c	2002-01-31 19:38:37.000000000 +1000
++++ fwmon-1.1.0-patched/slog.c	2014-02-21 20:57:42.430180933 +1100
+@@ -94,5 +94,5 @@
+ 			break;
+ 	}
+ 
+-	syslog(LOG_WARNING, (char *)&buf);
++	syslog(LOG_WARNING, "%s", (char *)&buf);
+ }
