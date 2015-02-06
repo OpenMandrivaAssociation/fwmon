@@ -1,7 +1,7 @@
 Summary:	A linux netlink firewall monitor
 Name:		fwmon
 Version:	1.1.0
-Release:	11
+Release:	12
 License:	GPLv2+
 Group:		System/Servers
 Url:		http://www.scaramanga.co.uk/fwmon/
