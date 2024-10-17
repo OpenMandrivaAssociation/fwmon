@@ -4,7 +4,7 @@ Version:	1.1.0
 Release:	12
 License:	GPLv2+
 Group:		System/Servers
-Url:		http://www.scaramanga.co.uk/fwmon/
+Url:		https://www.scaramanga.co.uk/fwmon/
 Source0:	%{name}-%{version}.tar.bz2
 # http://qa.mandriva.com/show_bug.cgi?id=36213
 Patch0:		fwmon-1.1.0-mb.patch
